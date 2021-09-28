@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+// 第三方库
+import React, { memo } from 'react'
+import { renderRoutes } from 'react-router-config'
+import { HashRouter } from 'react-router-dom'
 
-function App() {
+// 工具类
+import routers from './router'
+import store from './store'
+// 导入组件
+import YHAppHeader from './components/app-header'
+import YHAppFooter from './components/app-footer'
+import { Provider } from 'react-redux'
+import YHMusicPlayer from './pages/music/playerBar'
+
+
+
+
+export default memo(function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Provider store={store}>
+      <HashRouter>
+        <YHAppHeader></YHAppHeader>
 
-export default App;
+         {renderRoutes(routers)}
+        
+       
+        <div style={{ borderTop: '1px solid #d3d3d3' , background: '#f2f2f2' }}>
+          <YHAppFooter></YHAppFooter>
+        </div>
+        <YHMusicPlayer></YHMusicPlayer>
+      </HashRouter>
+    </Provider>
+
+
+  )
+})
+
